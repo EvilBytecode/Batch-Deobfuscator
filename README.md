@@ -5,11 +5,11 @@ Click on the video below how to use etc..
 # Deobfuscates obfuscators below:
 - https://github.com/moom825/batch-obfuscator-made-in-python/
 - https://github.com/baum1810/batchobfuscator
+- https://github.com/jackhscompbook/BatchObsfuscator (manual ill add tut how to deobf) (inspired by : - Johns Hammond Obfuscator)
 - and many more, also adding soon how to deobf johns hammond batch obf.
 
 # Updates Log:
 - v.9.9 = deobfuscates chinesee alphabet to 'readable' code
-- v.9.9.9 = adds echo statement to '@' for baums obfuscator it can be added manually and can cause some issues..
 
 # Todo
 - Johns Hammond Obfuscator
