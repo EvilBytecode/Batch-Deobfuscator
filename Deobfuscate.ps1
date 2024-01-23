@@ -1,29 +1,29 @@
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
-$openFileDialogInput = New-Object System.Windows.Forms.OpenFileDialog
-$openFileDialogInput.Title = "Select Input File"
-$openFileDialogInput.Filter = "All Files (*.*)|*.*"
+$OFDI = New-Object System.Windows.Forms.OpenFileDialog
+$OFDI.Title = "Select Input File"
+$OFDI.Filter = "All Files (*.*)|*.*"
 
-$resultInput = $openFileDialogInput.ShowDialog()
+$RI = $OFDI.ShowDialog()
 
-if ($resultInput -eq [System.Windows.Forms.DialogResult]::OK) {
-    $inputFilePath = $openFileDialogInput.FileName
-    $saveFileDialogOutput = New-Object System.Windows.Forms.SaveFileDialog
-    $saveFileDialogOutput.Title = "Save Output File"
-    $saveFileDialogOutput.Filter = "All Files (*.*)|*.*"
-    $resultOutput = $saveFileDialogOutput.ShowDialog()
-    if ($resultOutput -eq [System.Windows.Forms.DialogResult]::OK) {
-        $outputFilePath = $saveFileDialogOutput.FileName
-        $bytes = [System.IO.File]::ReadAllBytes($inputFilePath)
+if ($RI -eq [System.Windows.Forms.DialogResult]::OK) {
+    $IFP = $OFDI.FileName
+    $SFDO = New-Object System.Windows.Forms.SaveFileDialog
+    $SFDO.Title = "Save Output File"
+    $SFDO.Filter = "All Files (*.*)|*.*"
+    $RESPUT = $SFDO.ShowDialog()
+    if ($RESPUT -eq [System.Windows.Forms.DialogResult]::OK) {
+        $OFP = $SFDO.FileName
+        $bytes = [System.IO.File]::ReadAllBytes($IFP)
         $bytes = $bytes[8..($bytes.Length - 1)] # slices like i dont know how to explain first 8 bites gets ykyk..
-        $deobfuscatedCode = [System.Text.Encoding]::UTF8.GetString($bytes)
-        $atIndex = $deobfuscatedCode.IndexOf('@')
-        $modifiedCode = $deobfuscatedCode.Insert($atIndex, 'echo ')
-        $bytes = [System.Text.Encoding]::UTF8.GetBytes($modifiedCode)
+        $DC = [System.Text.Encoding]::UTF8.GetString($bytes)
+        $AT = $DC.IndexOf('@')
+        $MC = $DC.Insert($AT, 'echo ')
+        $bytes = [System.Text.Encoding]::UTF8.GetBytes($MC)
         
-        [System.IO.File]::WriteAllBytes($outputFilePath, $bytes)
-        Start-Process "notepad.exe" -ArgumentList $outputFilePath -Wait -WindowStyle Maximized
+        [System.IO.File]::WriteAllBytes($OFP, $bytes)
+        Start-Process "notepad.exe" -ArgumentList $OFP -Wait -WindowStyle Maximized
         return
     }
 } else {
